@@ -1,14 +1,24 @@
 package supergroupprojectbykvadrokopterteam.kvadrakopter.Entityes;
 
-import javax.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.util.Collection;
 
-
-public class UserEntity extends EntitySettings {
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserEntity  {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String userName;
 
     private String password;
 
     @OneToMany
-    private Collection<Roles> roles;
+    private Collection<RolesEntity> roles;
 }

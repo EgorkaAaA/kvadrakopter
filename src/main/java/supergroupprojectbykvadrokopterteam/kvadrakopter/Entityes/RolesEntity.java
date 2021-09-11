@@ -7,5 +7,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-public class Roles extends EntitySettings{
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class RolesEntity {
+    @Id
+    private String roleName;
 }
