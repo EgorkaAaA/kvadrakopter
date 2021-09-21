@@ -1,6 +1,7 @@
 package supergroupprojectbykvadrokopterteam.kvadrakopter.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -11,13 +12,14 @@ import org.springframework.stereotype.Service;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Entityes.RolesEntity;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Entityes.UserEntity;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Repositories.UserRepo;
+import supergroupprojectbykvadrokopterteam.kvadrakopter.Services.ServiceInterFaces.UserServiceInterface;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService, UserServiceInterface {
     private final UserRepo userRepo;
 
     @Autowired
@@ -37,5 +39,24 @@ public class UserService implements UserDetailsService {
 
     private Collection<? extends GrantedAuthority> mapRolesToGrantedAuthority(Collection<RolesEntity> roles) {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRoleName())).collect(Collectors.toList());
+    }
+
+    @Override
+    public ResponseEntity<UserEntity> saveUserInDataBase(UserEntity user) {
+        UserEntity userFromDb = userRepo.findByUserName(user.getUserName());
+        if(userFromDb != null) {
+
+        }
+        return ;
+    }
+
+    @Override
+    public UserEntity findUserByUserName(String userName) {
+        return null;
+    }
+
+    @Override
+    public UserEntity createUserFromVkAuth(String userName) {
+        return null;
     }
 }
