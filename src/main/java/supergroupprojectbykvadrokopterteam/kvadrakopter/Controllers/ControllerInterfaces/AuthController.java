@@ -1,4 +1,4 @@
-package supergroupprojectbykvadrokopterteam.kvadrakopter.Controllers;
+package supergroupprojectbykvadrokopterteam.kvadrakopter.Controllers.ControllerInterfaces;
 
 import org.springframework.http.ResponseEntity;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Entityes.UserEntity;
