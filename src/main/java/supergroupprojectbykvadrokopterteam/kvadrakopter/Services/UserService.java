@@ -58,7 +58,7 @@ public class UserService implements UserDetailsService, UserServiceInterface {
     public UserEntity findUserByUserName(String userName) throws UserNotFoundException {
         UserEntity userFromDb = userRepo.findByUserName(userName);
         if(userFromDb == null) {
-            throw new UserNotFoundException(String.format("User with name %s not found"),userName);
+            throw new UserNotFoundException(String.format("User with name %s not found",userName));
         }
         return userFromDb;
     }
