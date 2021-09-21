@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Entityes.RolesEntity;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Entityes.UserEntity;
+import supergroupprojectbykvadrokopterteam.kvadrakopter.Exceptions.UserAllReadyExistsException;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Repositories.UserRepo;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Services.ServiceInterFaces.UserServiceInterface;
 
@@ -42,10 +43,10 @@ public class UserService implements UserDetailsService, UserServiceInterface {
     }
 
     @Override
-    public ResponseEntity<UserEntity> saveUserInDataBase(UserEntity user) {
+    public ResponseEntity<UserEntity> saveUserInDataBase(UserEntity user) throws UserAllReadyExistsException {
         UserEntity userFromDb = userRepo.findByUserName(user.getUserName());
         if(userFromDb != null) {
-
+            throw new UserAllReadyExistsException(String.format("User with name %s all ready exists", user.getUserName()));
         }
         return ;
     }
