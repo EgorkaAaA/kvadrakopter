@@ -1,6 +1,7 @@
 package supergroupprojectbykvadrokopterteam.kvadrakopter.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Entityes.RolesEntity;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Entityes.UserEntity;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Exceptions.UserAllReadyExistsException;
+import supergroupprojectbykvadrokopterteam.kvadrakopter.Exceptions.UserNotFoundException;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Repositories.UserRepo;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Services.ServiceInterFaces.UserServiceInterface;
 
@@ -48,16 +50,22 @@ public class UserService implements UserDetailsService, UserServiceInterface {
         if(userFromDb != null) {
             throw new UserAllReadyExistsException(String.format("User with name %s all ready exists", user.getUserName()));
         }
-        return ;
+        userRepo.save(user);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @Override
-    public UserEntity findUserByUserName(String userName) {
-        return null;
+    public UserEntity findUserByUserName(String userName) throws UserNotFoundException {
+        UserEntity userFromDb = userRepo.findByUserName(userName);
+        if(userFromDb == null) {
+            throw new UserNotFoundException(String.format("User with name %s not found"),userName);
+        }
+        return userFromDb;
     }
 
     @Override
     public UserEntity createUserFromVkAuth(String userName) {
+        
         return null;
     }
 }
