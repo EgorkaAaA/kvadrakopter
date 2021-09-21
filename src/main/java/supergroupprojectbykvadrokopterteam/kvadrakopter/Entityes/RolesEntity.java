@@ -9,8 +9,8 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class RolesEntity {
     @Id
     private String roleName;

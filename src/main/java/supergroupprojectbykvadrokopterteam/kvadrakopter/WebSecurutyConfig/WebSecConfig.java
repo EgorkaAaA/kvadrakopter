@@ -12,6 +12,9 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Filters.csrfFilter;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Services.UserService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @EnableWebSecurity
 public class WebSecConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
