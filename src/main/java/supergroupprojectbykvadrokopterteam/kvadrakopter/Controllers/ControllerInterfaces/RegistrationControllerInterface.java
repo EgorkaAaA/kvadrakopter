@@ -3,10 +3,8 @@ package supergroupprojectbykvadrokopterteam.kvadrakopter.Controllers.ControllerI
 import org.springframework.http.ResponseEntity;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Entityes.UserEntity;
 
-public interface AuthController {
+public interface RegistrationControllerInterface {
     ResponseEntity<UserEntity> registrationEndPoint(UserEntity user);
-
-    ResponseEntity<UserEntity> authEndPoint(UserEntity user);
 
     ResponseEntity<UserEntity> vkAuthEndPoint(UserEntity user);
 }

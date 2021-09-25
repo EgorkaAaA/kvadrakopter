@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Entityes.RolesEntity;
 import supergroupprojectbykvadrokopterteam.kvadrakopter.Entityes.UserEntity;
@@ -50,6 +52,7 @@ public class UserService implements UserDetailsService, UserServiceInterface {
         if(userFromDb != null) {
             throw new UserAllReadyExistsException(String.format("User with name %s all ready exists", user.getUserName()));
         }
+        user.setPassword(passwordEncoder().encode(user.getPassword()));
         userRepo.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -65,7 +68,10 @@ public class UserService implements UserDetailsService, UserServiceInterface {
 
     @Override
     public UserEntity createUserFromVkAuth(String userName) {
-        
         return null;
+    }
+
+    private PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
